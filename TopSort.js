@@ -1,43 +1,14 @@
-const topSortHelper = (node, explored, s) => {
-    explored.add(node);
+import { Graph } from './Graph.js';
+import { graphNode } from './Graph.js';
 
-    this.edges[node].forEach(n => {
-        if (!explored.has(n)) {
-            this.topSortHelper(n, explored, s);
-        }
-    });
+let g = new Graph(Graph.DIRECTED);
 
-    s.push(node);
-}
+g.addEdge("A", "C");
+g.addEdge("A", "B");
+g.addEdge("A", "D");
+g.addEdge("C", "D");
+g.addEdge("D", "E");
+g.addEdge("E", "F");
+g.addEdge("B", "G");
 
-const topSort = () => {
-    let s = []; //Stack;
-    let explored = new Set();
-
-    this.nodes.forEach(node => {
-        if (!explored.has(node)) {
-            this.topSortHelper(node, explored, s);
-        }
-    });
-
-    while (!s.isEmpty()) {
-        console.log(s.pop());
-    }
-}
-
-let g = new Graph();
-g.addNode("A");
-g.addNode("B");
-g.addNode("C");
-g.addNode("D");
-g.addNode("E");
-g.addNode("F");
-g.addNode("G");
-
-g.addDirectedEdge("A", "C");
-g.addDirectedEdge("A", "B");
-g.addDirectedEdge("A", "D");
-g.addDirectedEdge("C", "D");
-g.addDirectedEdge("D", "E");
-g.addDirectedEdge("E", "F");
-g.addDirectedEdge("B", "G");
+console.log(g.topSort());
