@@ -28,10 +28,12 @@ export class graphNode {
 }
 
 export class Graph {
-    constructor(type = GRAPH_UNDIRECTED) {
+    constructor(type = Graph.UNDIRECTED) {
         this.nodes = new Map();
         this.type = type;
     }
+
+    //Basic Functions:
 
     addVertex(value) {
         if (this.nodes.has(value)) {
@@ -79,7 +81,40 @@ export class Graph {
         return [srcNode, destNode];
 
     }
+
+    getNodes() {
+        return this.nodes;
+    }
+
+    //Algorithm Implementations:
+
+    //Topological Sort:
+
+    topSortHelper(node, explored, s) {
+        explored.add(node);
+
+        node.getAdjacents().forEach(n => {
+            if (!explored.has(n)) {
+                this.topSortHelper(n, explored, s);
+            }
+        });
+
+        s.push(node);
+    }
+
+    topSort() {
+        let s = [];
+        let explored = new Set();
+
+        this.nodes.forEach(node => {
+            if (!explored.has(node)) {
+                this.topSortHelper(node, explored, s);
+            }
+        });
+        
+        return s.reverse();
+    }
 }
 
-Graph.UNDIRECTED = new Symbol('GRAPH_UNDIRECTED');
-Graph.DIRECTED = new Symbol('GRAPH_DIRECTED');
+Graph.UNDIRECTED = Symbol('GRAPH_UNDIRECTED');
+Graph.DIRECTED = Symbol('GRAPH_DIRECTED');
