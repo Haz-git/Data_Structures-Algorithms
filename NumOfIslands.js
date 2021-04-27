@@ -3,7 +3,7 @@ const numIslands = (grid) => {
 
     const depthSearch = (row, column) => {
 
-        //Base case and recursive break: if the grid at this row and column # is equal to 1, we set the value to 'O' and return.
+        //Base case and recursive break: if the grid at this row and column # is equal to 1, we set the value to 'O' and return. If we hit an actual 0, we do nothing.
         if (grid[row][column] === '1') {
             grid[row][column] = '0';
         } else {
