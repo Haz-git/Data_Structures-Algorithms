@@ -91,8 +91,10 @@ export class Graph {
     //Topological Sort:
 
     topSortHelper(node, explored, s) {
+        //The helper will add the node to the explored list.
         explored.add(node);
 
+        //This topSortHelper is a recursive function, it checks the adjacency list of the node, and explores every "dependency". Think of DFS--It will go down a branch entirely and then push to stack when coming back up.
         node.getAdjacents().forEach(n => {
             if (!explored.has(n)) {
                 this.topSortHelper(n, explored, s);
@@ -103,15 +105,18 @@ export class Graph {
     }
 
     topSort() {
+        //This topSort algorithm is implemented via DFS in mind.
         let s = [];
         let explored = new Set();
 
+        //For every unexplored node in our graph, we'll send it to the helper.
         this.nodes.forEach(node => {
             if (!explored.has(node)) {
                 this.topSortHelper(node, explored, s);
             }
         });
-        
+
+        //Because we use a stack, we can pop() the items out in correct order (FILO), or, we can reverse this array and return the items as an array in the correct order.
         return s.reverse();
     }
 }
