@@ -119,6 +119,23 @@ export class Graph {
         //Because we use a stack, we can pop() the items out in correct order (FILO), or, we can reverse this array and return the items as an array in the correct order.
         return s.reverse();
     }
+
+    //Dijkstra's algorithm:
+
+    findNodeWithShortestDistance(distances, visited) {
+        //Helper function for Dijkstra's shortest path. This utility function finds the nearest node.
+        let shortest = null;
+
+        for (let node in distances) {
+            let currentIsShortest = shortest === null || distances[node] < distances[shortest];
+
+            if (currentIsShortest && !visited.includes(node)) {
+                shortest = node;
+            }
+        }
+
+        return shortest;
+    }
 }
 
 Graph.UNDIRECTED = Symbol('GRAPH_UNDIRECTED');
